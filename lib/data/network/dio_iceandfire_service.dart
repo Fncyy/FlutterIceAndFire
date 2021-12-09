@@ -13,6 +13,16 @@ abstract class IceAndFireService implements IceAndFireApi {
 
   factory IceAndFireService() {
     final _dio = Dio();
+
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (request, handler) {
+          request.queryParameters["pageSize"] = 30;
+          handler.next(request);
+        }
+      )
+    );
+
     return _IceAndFireService(_dio);
   }
 

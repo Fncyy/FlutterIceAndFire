@@ -38,7 +38,7 @@ extension on NetworkBook {
       publisher: publisher,
       country: country,
       mediaType: mediaType,
-      released: released,
+      released: released.split('T').first,
       povCharacters: povCharacters.map((e) => e.toCharacterId()).toList(),
     );
   }

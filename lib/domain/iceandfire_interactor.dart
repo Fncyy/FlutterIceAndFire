@@ -1,5 +1,6 @@
 import 'package:app_of_ice_and_fire/data/disk/iceandfire_disk_data_source.dart';
 import 'package:app_of_ice_and_fire/data/network/iceandfire_network_data_source.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'model/book.dart';
 
@@ -13,12 +14,12 @@ class IceAndFireInteractor {
   );
 
   Future<List<Book>> getBooks() async {
-    await _networkDataSource.getBooks().then((books) {
-      if (books != null) {
-        _diskDataSource.saveBooks(books);
-      }
-      return books ?? [];
-    });
-    return [];
+    final books = await _networkDataSource.getBooks();
+    if (books != null) {
+      _diskDataSource.saveBooks(books);
+      return books;
+    } else {
+      return [];
+    }
   }
 }

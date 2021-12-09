@@ -5,6 +5,7 @@ import 'package:app_of_ice_and_fire/data/network/dio_iceandfire_service.dart';
 import 'package:app_of_ice_and_fire/data/network/iceandfire_api.dart';
 import 'package:app_of_ice_and_fire/data/network/iceandfire_network_data_source.dart';
 import 'package:app_of_ice_and_fire/domain/iceandfire_interactor.dart';
+import 'package:app_of_ice_and_fire/ui/books/list/book_list_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final injector = GetIt.instance;
@@ -47,5 +48,11 @@ void initDependencies() {
       );
     },
     dependsOn: [IceAndFireDiskDataSource],
+  );
+
+  injector.registerFactory(
+    () => BookListBloc(
+      injector<IceAndFireInteractor>(),
+    ),
   );
 }
