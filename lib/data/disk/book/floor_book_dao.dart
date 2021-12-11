@@ -16,15 +16,21 @@ abstract class FloorBookDao implements BookDao {
   @Insert(onConflict: OnConflictStrategy.ignore)
   Future<void> insertBook(FloorBook book);
 
+  @Query("SELECT * FROM bookAuthors WHERE name = :name AND bookId = :bookId")
+  Future<FloorBookAuthor?> getBookAuthorId(String name, int bookId);
+
   @Query("SELECT * FROM bookAuthors WHERE bookId = :bookId")
   Future<List<FloorBookAuthor>> getBookAuthors(int bookId);
 
   @Insert(onConflict: OnConflictStrategy.ignore)
-  Future<void> insertBookAuthors(List<FloorBookAuthor> bookAuthors);
+  Future<void> insertBookAuthor(FloorBookAuthor bookAuthors);
+
+  @Query("SELECT * FROM bookPovCharacters WHERE characterId = :characterId AND bookId = :bookId")
+  Future<FloorBookPovCharacter?> getBookPovCharacterId(int characterId, int bookId);
 
   @Query("SELECT * FROM bookPovCharacters WHERE bookId = :bookId")
   Future<List<FloorBookPovCharacter>> getBookPovCharacters(int bookId);
 
   @Insert(onConflict: OnConflictStrategy.ignore)
-  Future<void> insertBookPovCharacters(List<FloorBookPovCharacter> bookPovCharacters);
+  Future<void> insertBookPovCharacter(FloorBookPovCharacter bookPovCharacters);
 }

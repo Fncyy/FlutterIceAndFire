@@ -1,8 +1,9 @@
+import 'package:app_of_ice_and_fire/ui/books/detail/model/detail_book_character.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 
 @immutable
-class Book extends Equatable {
+class DetailBook extends Equatable {
   final int id;
   final String name;
   final String isbn;
@@ -12,10 +13,11 @@ class Book extends Equatable {
   final String country;
   final String mediaType;
   final String released;
-  final List<int> povCharacters;
+  final List<DetailBookCharacter> povCharacters;
 
   @override
-  List<Object> get props => [
+  List<Object> get props =>
+      [
         id,
         name,
         isbn,
@@ -30,7 +32,7 @@ class Book extends Equatable {
 
 //<editor-fold desc="Data Methods">
 
-  const Book({
+  const DetailBook({
     required this.id,
     required this.name,
     required this.isbn,
@@ -46,7 +48,7 @@ class Book extends Equatable {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Book &&
+      (other is DetailBook &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           name == other.name &&
@@ -74,7 +76,7 @@ class Book extends Equatable {
 
   @override
   String toString() {
-    return 'Book{' +
+    return 'DetailBook{' +
         ' id: $id,' +
         ' name: $name,' +
         ' isbn: $isbn,' +
@@ -88,7 +90,7 @@ class Book extends Equatable {
         '}';
   }
 
-  Book copyWith({
+  DetailBook copyWith({
     int? id,
     String? name,
     String? isbn,
@@ -98,9 +100,9 @@ class Book extends Equatable {
     String? country,
     String? mediaType,
     String? released,
-    List<int>? povCharacters,
+    List<DetailBookCharacter>? povCharacters,
   }) {
-    return Book(
+    return DetailBook(
       id: id ?? this.id,
       name: name ?? this.name,
       isbn: isbn ?? this.isbn,
@@ -129,8 +131,8 @@ class Book extends Equatable {
     };
   }
 
-  factory Book.fromMap(Map<String, dynamic> map) {
-    return Book(
+  factory DetailBook.fromMap(Map<String, dynamic> map) {
+    return DetailBook(
       id: map['id'] as int,
       name: map['name'] as String,
       isbn: map['isbn'] as String,
@@ -140,7 +142,7 @@ class Book extends Equatable {
       country: map['country'] as String,
       mediaType: map['mediaType'] as String,
       released: map['released'] as String,
-      povCharacters: map['povCharacters'] as List<int>,
+      povCharacters: map['povCharacters'] as List<DetailBookCharacter>,
     );
   }
 

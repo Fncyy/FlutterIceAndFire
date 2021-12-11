@@ -9,11 +9,15 @@ abstract class BookDao {
 
   Future<void> insertBook(FloorBook book);
 
+  Future<FloorBookAuthor?> getBookAuthorId(String name, int bookId);
+
   Future<List<FloorBookAuthor>> getBookAuthors(int bookId);
 
-  Future<void> insertBookAuthors(List<FloorBookAuthor> bookAuthors);
+  Future<void> insertBookAuthor(FloorBookAuthor bookAuthors);
+
+  Future<FloorBookPovCharacter?> getBookPovCharacterId(int characterId, int bookId);
 
   Future<List<FloorBookPovCharacter>> getBookPovCharacters(int bookId);
 
-  Future<void> insertBookPovCharacters(List<FloorBookPovCharacter> bookPovCharacters);
+  Future<void> insertBookPovCharacter(FloorBookPovCharacter bookPovCharacters);
 }

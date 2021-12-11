@@ -2,7 +2,8 @@ import 'package:floor/floor.dart';
 
 @Entity(tableName: "bookAuthors")
 class FloorBookAuthor {
-  @primaryKey
+  @PrimaryKey(autoGenerate: true)
+  int? id;
   String name;
   int bookId;
 

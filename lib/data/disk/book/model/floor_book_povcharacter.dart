@@ -2,12 +2,13 @@ import 'package:floor/floor.dart';
 
 @Entity(tableName: "bookPovCharacters")
 class FloorBookPovCharacter {
-  @primaryKey
-  int id;
+  @PrimaryKey(autoGenerate: true)
+  int? id;
+  int characterId;
   int bookId;
 
   FloorBookPovCharacter(
-    this.id,
+    this.characterId,
     this.bookId,
   );
 }

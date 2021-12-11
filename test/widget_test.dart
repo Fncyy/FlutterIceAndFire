@@ -13,7 +13,7 @@ import 'package:app_of_ice_and_fire/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const IceAndFireApp());
+    await tester.pumpWidget(IceAndFireApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
