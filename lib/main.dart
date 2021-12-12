@@ -1,6 +1,11 @@
 import 'package:app_of_ice_and_fire/di/di_utils.dart';
 import 'package:app_of_ice_and_fire/ui/books/detail/book_detail.dart';
 import 'package:app_of_ice_and_fire/ui/books/list/book_list.dart';
+import 'package:app_of_ice_and_fire/ui/characters/detail/character_detail.dart';
+import 'package:app_of_ice_and_fire/ui/characters/list/character_list.dart';
+import 'package:app_of_ice_and_fire/ui/houses/detail/house_detail.dart';
+import 'package:app_of_ice_and_fire/ui/houses/list/house_list.dart';
+import 'package:app_of_ice_and_fire/ui/search/search.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,6 +20,7 @@ const CHARACTER_LIST_PAGE = '/characterList';
 const CHARACTER_DETAIL_PAGE = '/characterDetail';
 const HOUSE_LIST_PAGE = '/houseList';
 const HOUSE_DETAIL_PAGE = '/houseDetail';
+const SEARCH_PAGE = '/search';
 
 class IceAndFireApp extends StatelessWidget {
   @override
@@ -28,7 +34,7 @@ class IceAndFireApp extends StatelessWidget {
             title: 'Ice and Fire',
             theme: ThemeData(
               primarySwatch: Colors.brown,
-              scaffoldBackgroundColor: Colors.grey,
+              scaffoldBackgroundColor: Colors.grey[300],
             ),
             home: BookListPage(),
             onGenerateRoute: (settings) {
@@ -41,6 +47,31 @@ class IceAndFireApp extends StatelessWidget {
               if (name.startsWith(BOOK_DETAIL_PAGE)) {
                 return MaterialPageRoute(builder: (context) {
                   return BookDetail(settings.arguments as int);
+                });
+              }
+              if (name.startsWith(CHARACTER_LIST_PAGE)) {
+                return MaterialPageRoute(builder: (context) {
+                  return CharacterListPage();
+                });
+              }
+              if (name.startsWith(CHARACTER_DETAIL_PAGE)) {
+                return MaterialPageRoute(builder: (context) {
+                  return CharacterDetail(settings.arguments as int);
+                });
+              }
+              if (name.startsWith(HOUSE_LIST_PAGE)) {
+                return MaterialPageRoute(builder: (context) {
+                  return HouseListPage();
+                });
+              }
+              if (name.startsWith(HOUSE_DETAIL_PAGE)) {
+                return MaterialPageRoute(builder: (context) {
+                  return HouseDetail(settings.arguments as int);
+                });
+              }
+              if (name.startsWith(SEARCH_PAGE)) {
+                return MaterialPageRoute(builder: (context) {
+                  return SearchPage();
                 });
               }
             },

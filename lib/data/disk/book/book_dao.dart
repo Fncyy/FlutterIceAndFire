@@ -3,21 +3,43 @@ import 'model/floor_book_author.dart';
 import 'model/floor_book_povcharacter.dart';
 
 abstract class BookDao {
-  Future<FloorBook?> getBook(int id);
+  Future<FloorBook?> getBook(
+    int id,
+  );
 
-  Future<void> insertBooks(List<FloorBook> books);
+  Future<void> insertBooks(
+    List<FloorBook> books,
+  );
 
-  Future<void> insertBook(FloorBook book);
+  Future<void> insertBook(
+    FloorBook book,
+  );
 
-  Future<FloorBookAuthor?> getBookAuthorId(String name, int bookId);
 
-  Future<List<FloorBookAuthor>> getBookAuthors(int bookId);
+  Future<FloorBookAuthor?> getBookAuthorId(
+    String name,
+    int bookId,
+  );
 
-  Future<void> insertBookAuthor(FloorBookAuthor bookAuthors);
+  Future<List<FloorBookAuthor>> getBookAuthors(
+    int bookId,
+  );
 
-  Future<FloorBookPovCharacter?> getBookPovCharacterId(int characterId, int bookId);
+  Future<void> insertBookAuthor(
+    FloorBookAuthor bookAuthors,
+  );
 
-  Future<List<FloorBookPovCharacter>> getBookPovCharacters(int bookId);
 
-  Future<void> insertBookPovCharacter(FloorBookPovCharacter bookPovCharacters);
+  Future<FloorBookPovCharacter?> getBookPovCharacterId(
+    int characterId,
+    int bookId,
+  );
+
+  Future<List<FloorBookPovCharacter>> getBookPovCharacters(
+    int bookId,
+  );
+
+  Future<void> insertBookPovCharacter(
+    FloorBookPovCharacter bookPovCharacters,
+  );
 }

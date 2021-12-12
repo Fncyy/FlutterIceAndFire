@@ -8,11 +8,11 @@ class BookListBloc extends Bloc<BookListEvent, BookListState> {
 
   BookListBloc(
     this._interactor,
-  ) : super(Loading()) {
-    on<LoadBooksEvent>(
+  ) : super(BookListLoadingState()) {
+    on<BookListLoadBooksEvent>(
       (event, emit) async {
         final books = await _interactor.getBooks();
-        emit(ContentReady(books: books));
+        emit(BookListContentReadyState(books: books));
       },
     );
   }

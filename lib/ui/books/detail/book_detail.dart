@@ -1,5 +1,8 @@
 import 'package:app_of_ice_and_fire/di/di_utils.dart';
 import 'package:app_of_ice_and_fire/ui/books/detail/book_detail_bloc.dart';
+import 'package:app_of_ice_and_fire/ui/books/detail/widgets/book_detail_loading.dart';
+import 'package:app_of_ice_and_fire/ui/widgets/row_element.dart';
+import 'package:app_of_ice_and_fire/ui/widgets/section.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,11 +43,12 @@ class BookDetail extends StatelessWidget {
       create: (context) => injector<BookDetailBloc>(),
       child: BlocBuilder<BookDetailBloc, BookDetailState>(
         builder: (context, state) {
-          if (state is Loading) {
-            BlocProvider.of<BookDetailBloc>(context).add(LoadBookEvent(bookId));
+          if (state is BookDetailLoadingState) {
+            BlocProvider.of<BookDetailBloc>(context)
+                .add(BookDetailLoadBookEvent(bookId));
             return BookDetailLoading();
           }
-          if (state is ContentReady) {
+          if (state is BookDetailContentReadyState) {
             return Scaffold(
               appBar: AppBar(
                 title: Text(state.book.name),
@@ -57,11 +61,15 @@ class BookDetail extends StatelessWidget {
                       icon: Icon(CupertinoIcons.person), label: 'Characters'),
                   BottomNavigationBarItem(
                       icon: Icon(CupertinoIcons.house), label: 'Houses'),
+                  BottomNavigationBarItem(
+                      icon: Icon(CupertinoIcons.search), label: 'Search'),
                 ],
                 currentIndex: 0,
                 onTap: (index) {
                   _onTabItemTapped(context, index);
                 },
+                selectedItemColor: Colors.brown,
+                unselectedItemColor: Colors.grey,
               ),
               body: SingleChildScrollView(
                 child: Column(
@@ -69,30 +77,30 @@ class BookDetail extends StatelessWidget {
                     Section(
                       title: 'General',
                       children: [
-                        RowElementWithTitle(
+                        RowElement(
                           title: 'ISBN',
                           description: state.book.isbn,
                         ),
-                        RowElementWithTitle(
+                        RowElement(
                           title: 'Pages',
                           description: state.book.numberOfPages.toString(),
                         ),
-                        RowElementWithTitle(
+                        RowElement(
                           title: 'Publisher',
                           description: state.book.publisher,
                         ),
-                        RowElementWithTitle(
+                        RowElement(
                           title: 'Country',
                           description: state.book.country,
                         ),
-                        RowElementWithTitle(
+                        RowElement(
                           title: 'Media',
                           description: state.book.mediaType,
                         ),
-                        RowElementWithTitle(
+                        RowElement(
                           title: 'Released',
                           description: state.book.released,
-                          divider: false,
+                          dividerAfter: false,
                         ),
                       ],
                     ),
@@ -105,7 +113,7 @@ class BookDetail extends StatelessWidget {
                               index++)
                             RowElement(
                               title: state.book.authors[index],
-                              divider: index != state.book.authors.length - 1,
+                              dividerAfter: index != state.book.authors.length - 1,
                             )
                         ],
                       ),
@@ -118,8 +126,16 @@ class BookDetail extends StatelessWidget {
                               index++)
                             RowElement(
                               title: state.book.povCharacters[index].name,
-                              divider:
+                              dividerAfter:
                                   index != state.book.povCharacters.length - 1,
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  CHARACTER_DETAIL_PAGE,
+                                  arguments:
+                                      state.book.povCharacters[index].id,
+                                );
+                              },
                             )
                         ],
                       ),
@@ -135,136 +151,6 @@ class BookDetail extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class Section extends StatelessWidget {
-  final String title;
-  final Widget? child;
-  final List<Widget>? children;
-
-  const Section({
-    Key? key,
-    required this.title,
-    this.child,
-    this.children,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              if (child != null) child! else if (children != null) ...children!,
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class RowElement extends StatelessWidget {
-  final String title;
-  final bool divider;
-
-  const RowElement({Key? key, required this.title, this.divider = true})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(title),
-                ],
-              ),
-            ],
-          ),
-        ),
-        if (divider)
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-            child: Divider(),
-          ),
-      ],
-    );
-  }
-}
-
-class RowElementWithTitle extends StatelessWidget {
-  final String title;
-  final String description;
-  final bool divider;
-
-  const RowElementWithTitle(
-      {Key? key,
-      required this.title,
-      required this.description,
-      this.divider = true})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(title),
-                  const Spacer(),
-                  Text(
-                    description,
-                    style: const TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        if (divider)
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-            child: Divider(),
-          ),
-      ],
-    );
-  }
-}
-
-class BookDetailLoading extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Book details'),
-      ),
-      body: const Center(
-        child: CircularProgressIndicator(),
       ),
     );
   }

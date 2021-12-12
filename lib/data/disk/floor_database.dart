@@ -13,6 +13,12 @@ import 'package:app_of_ice_and_fire/data/disk/character/model/floor_character_pl
 import 'package:app_of_ice_and_fire/data/disk/character/model/floor_character_povbooks.dart';
 import 'package:app_of_ice_and_fire/data/disk/character/model/floor_character_titles.dart';
 import 'package:app_of_ice_and_fire/data/disk/character/model/floor_character_tvseries.dart';
+import 'package:app_of_ice_and_fire/data/disk/house/floor_house_dao.dart';
+import 'package:app_of_ice_and_fire/data/disk/house/model/floor_house.dart';
+import 'package:app_of_ice_and_fire/data/disk/house/model/floor_house_ancestralweapons.dart';
+import 'package:app_of_ice_and_fire/data/disk/house/model/floor_house_cadetbranches.dart';
+import 'package:app_of_ice_and_fire/data/disk/house/model/floor_house_seats.dart';
+import 'package:app_of_ice_and_fire/data/disk/house/model/floor_house_titles.dart';
 import 'package:floor/floor.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 
@@ -32,9 +38,17 @@ part 'floor_database.g.dart';
     FloorCharacterPovBook,
     FloorCharacterTitle,
     FloorCharacterTvSeries,
+    FloorHouse,
+    FloorHouseAncestralWeapon,
+    FloorHouseCadetBranch,
+    FloorHouseSeat,
+    FloorHouseTitle,
   ],
 )
 abstract class FloorIceAndFireDatabase extends FloorDatabase {
   FloorBookDao get bookDao;
+
   FloorCharacterDao get characterDao;
+
+  FloorHouseDao get houseDao;
 }

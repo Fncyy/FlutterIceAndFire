@@ -25,6 +25,12 @@ class BookListPage extends StatelessWidget {
               .pushNamedAndRemoveUntil(HOUSE_LIST_PAGE, (route) => false);
         }
         break;
+      case 3:
+        {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(SEARCH_PAGE, (route) => false);
+        }
+        break;
     }
   }
 
@@ -44,20 +50,24 @@ class BookListPage extends StatelessWidget {
               icon: Icon(CupertinoIcons.person), label: 'Characters'),
           BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.house), label: 'Houses'),
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.search), label: 'Search'),
         ],
         currentIndex: 0,
         onTap: (index) {
           _onTabItemTapped(context, index);
         },
+        selectedItemColor: Colors.brown,
+        unselectedItemColor: Colors.grey,
       ),
       body: BlocProvider(
         create: (context) => injector<BookListBloc>(),
         child: BlocBuilder<BookListBloc, BookListState>(
           builder: (context, state) {
-            if (state is Loading) {
-              BlocProvider.of<BookListBloc>(context).add(LoadBooksEvent());
+            if (state is BookListLoadingState) {
+              BlocProvider.of<BookListBloc>(context).add(BookListLoadBooksEvent());
               return ListLoading();
-            } else if (state is ContentReady) {
+            } else if (state is BookListContentReadyState) {
               return BookListContent(state);
             }
 

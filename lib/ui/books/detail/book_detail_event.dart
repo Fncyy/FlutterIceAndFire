@@ -5,8 +5,8 @@ abstract class BookDetailEvent {
   const BookDetailEvent();
 }
 
-class LoadBookEvent extends BookDetailEvent {
+class BookDetailLoadBookEvent extends BookDetailEvent {
   final int id;
 
-  LoadBookEvent(this.id);
+  BookDetailLoadBookEvent(this.id);
 }

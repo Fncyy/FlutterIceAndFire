@@ -5,10 +5,10 @@ abstract class BookListEvent {
   const BookListEvent();
 }
 
-class LoadBooksEvent extends BookListEvent {
-  static final LoadBooksEvent _instance = LoadBooksEvent._();
+class BookListLoadBooksEvent extends BookListEvent {
+  static final BookListLoadBooksEvent _instance = BookListLoadBooksEvent._();
 
-  factory LoadBooksEvent() => _instance;
+  factory BookListLoadBooksEvent() => _instance;
 
-  LoadBooksEvent._();
+  BookListLoadBooksEvent._();
 }

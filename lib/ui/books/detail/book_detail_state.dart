@@ -5,26 +5,26 @@ abstract class BookDetailState {
   const BookDetailState();
 }
 
-class Loading extends BookDetailState {
-  static final Loading _instance = Loading._();
+class BookDetailLoadingState extends BookDetailState {
+  static final BookDetailLoadingState _instance = BookDetailLoadingState._();
 
-  factory Loading() => _instance;
+  factory BookDetailLoadingState() => _instance;
 
-  Loading._();
+  BookDetailLoadingState._();
 }
 
-class Error extends BookDetailState {
-  static final Error _instance = Error._();
+class BookDetailErrorState extends BookDetailState {
+  static final BookDetailErrorState _instance = BookDetailErrorState._();
 
-  factory Error() => _instance;
+  factory BookDetailErrorState() => _instance;
 
-  Error._();
+  BookDetailErrorState._();
 }
 
-class ContentReady extends BookDetailState with EquatableMixin {
+class BookDetailContentReadyState extends BookDetailState with EquatableMixin {
   final DetailBook book;
 
-  ContentReady({required this.book});
+  BookDetailContentReadyState({required this.book});
 
   @override
   List<Object> get props => [book];

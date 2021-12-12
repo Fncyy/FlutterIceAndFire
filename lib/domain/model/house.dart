@@ -10,17 +10,17 @@ class House extends Equatable {
   final String words;
   final List<String> titles;
   final List<String> seats;
-  final int currentLordId;
-  final int heirId;
-  final int overlordId;
+  final int? currentLordId;
+  final int? heirId;
+  final int? overlordId;
   final String founded;
-  final String founder;
+  final int? founder;
   final String diedOut;
-  final String ancestralWeapons;
+  final List<String> ancestralWeapons;
   final List<int> cadetBranchIds;
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         name,
         region,
@@ -48,11 +48,11 @@ class House extends Equatable {
     required this.words,
     required this.titles,
     required this.seats,
-    required this.currentLordId,
-    required this.heirId,
-    required this.overlordId,
+    this.currentLordId,
+    this.heirId,
+    this.overlordId,
     required this.founded,
-    required this.founder,
+    this.founder,
     required this.diedOut,
     required this.ancestralWeapons,
     required this.cadetBranchIds,
@@ -99,7 +99,7 @@ class House extends Equatable {
 
   @override
   String toString() {
-    return 'Character{' +
+    return 'House{' +
         ' id: $id,' +
         ' name: $name,' +
         ' region: $region,' +
@@ -130,9 +130,9 @@ class House extends Equatable {
     int? heirId,
     int? overlordId,
     String? founded,
-    String? founder,
+    int? founder,
     String? diedOut,
-    String? ancestralWeapons,
+    List<String>? ancestralWeapons,
     List<int>? cadetBranchIds,
   }) {
     return House(
@@ -187,9 +187,9 @@ class House extends Equatable {
       heirId: map['heirId'] as int,
       overlordId: map['overlordId'] as int,
       founded: map['founded'] as String,
-      founder: map['founder'] as String,
+      founder: map['founder'] as int,
       diedOut: map['diedOut'] as String,
-      ancestralWeapons: map['ancestralWeapons'] as String,
+      ancestralWeapons: map['ancestralWeapons'] as List<String>,
       cadetBranchIds: map['cadetBranchIds'] as List<int>,
     );
   }

@@ -7,29 +7,29 @@ abstract class BookListState {
   const BookListState();
 }
 
-class Loading extends BookListState {
-  static final Loading _instance = Loading._();
+class BookListLoadingState extends BookListState {
+  static final BookListLoadingState _instance = BookListLoadingState._();
 
-  factory Loading() => _instance;
+  factory BookListLoadingState() => _instance;
 
-  Loading._();
+  BookListLoadingState._();
 }
 
-abstract class Content extends BookListState {
+abstract class BookListContentState extends BookListState {
   final List<Book> books;
 
-  Content({required this.books});
+  BookListContentState({required this.books});
 }
 
-class ContentReady extends Content with EquatableMixin {
-  ContentReady({required List<Book> books}) : super(books: books);
+class BookListContentReadyState extends BookListContentState with EquatableMixin {
+  BookListContentReadyState({required List<Book> books}) : super(books: books);
 
   @override
   List<Object> get props => [books];
 }
 
-class Error extends Content with EquatableMixin {
-  Error({required List<Book> books}) : super(books: books);
+class BookListErrorState extends BookListContentState with EquatableMixin {
+  BookListErrorState({required List<Book> books}) : super(books: books);
 
   @override
   List<Object> get props => [books];

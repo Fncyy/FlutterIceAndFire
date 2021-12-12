@@ -14,7 +14,7 @@ class Character extends Equatable {
   final int? fatherId;
   final int? motherId;
   final int? spouseId;
-  final List<int>? allegianceIds;
+  final List<int> allegianceIds;
   final List<int> bookIds;
   final List<int> povBookIds;
   final List<String> tvSeries;
@@ -30,6 +30,7 @@ class Character extends Equatable {
         died,
         titles,
         aliases,
+        allegianceIds,
         bookIds,
         povBookIds,
         tvSeries,

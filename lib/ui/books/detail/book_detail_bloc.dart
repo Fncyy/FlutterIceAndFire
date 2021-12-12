@@ -16,8 +16,8 @@ class BookDetailBloc extends Bloc<BookDetailEvent, BookDetailState> {
 
   BookDetailBloc(
     this._interactor,
-  ) : super(Loading()) {
-    on<LoadBookEvent>((event, emit) async {
+  ) : super(BookDetailLoadingState()) {
+    on<BookDetailLoadBookEvent>((event, emit) async {
       final book = await _interactor.getBookWithId(event.id);
       if (book != null) {
         var povCharacters = <DetailBookCharacter>[];
@@ -25,9 +25,10 @@ class BookDetailBloc extends Bloc<BookDetailEvent, BookDetailState> {
           final character = await _interactor.getCharacterWithId(id);
           povCharacters.add(character!.toBookDetailModel());
         }
-        emit(ContentReady(book: book.toBookDetailModel(povCharacters)));
+        emit(BookDetailContentReadyState(
+            book: book.toBookDetailModel(povCharacters)));
       } else {
-        emit(Error());
+        emit(BookDetailErrorState());
       }
     });
   }
