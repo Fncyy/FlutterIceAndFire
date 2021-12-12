@@ -3,6 +3,7 @@ import 'package:app_of_ice_and_fire/domain/model/book.dart';
 import 'package:app_of_ice_and_fire/domain/model/character.dart';
 import 'package:app_of_ice_and_fire/ui/search/search_bloc.dart';
 import 'package:app_of_ice_and_fire/ui/search/search_type.dart';
+import 'package:app_of_ice_and_fire/ui/widgets/iceandfire_bottomnavigationbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,35 +20,6 @@ class _SearchPageState extends State<SearchPage> {
 
   _SearchPageState();
 
-  void _onTabItemTapped(BuildContext context, int index) {
-    switch (index) {
-      case 0:
-        {
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(BOOK_LIST_PAGE, (route) => false);
-        }
-        break;
-      case 1:
-        {
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(CHARACTER_LIST_PAGE, (route) => false);
-        }
-        break;
-      case 2:
-        {
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(HOUSE_LIST_PAGE, (route) => false);
-        }
-        break;
-      case 3:
-        {
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(SEARCH_PAGE, (route) => false);
-        }
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,24 +28,7 @@ class _SearchPageState extends State<SearchPage> {
           child: Text("Search"),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.book), label: 'Books'),
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.person), label: 'Characters'),
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.house), label: 'Houses'),
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.search), label: 'Search'),
-        ],
-        currentIndex: 3,
-        onTap: (index) {
-          _onTabItemTapped(context, index);
-        },
-        selectedItemColor: Colors.brown,
-        unselectedItemColor: Colors.grey,
-      ),
+      bottomNavigationBar: IceAndFireBottomNavigationBar(context, 3),
       body: BlocProvider(
           create: (context) => injector<SearchBloc>(),
           child: Padding(
